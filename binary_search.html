@@ -1,0 +1,72 @@
+<!DOCTYPE>
+<html>
+	<head>
+		  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.0/css/bulma.min.css" integrity="sha256-J2MxVJvpHeOeT0uUGqoj5CkoFkT4zBEweNmqP/UWu1U=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/themes/prism.min.css" />
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+	pre{font-size:1.3rem; border-radius:30px;}
+</style>
+	</head>
+	<body>
+		<section class="section">
+			<div class="container">
+				<pre class="language-bash">
+					<code>
+
+#!/bin/java
+
+public class binary_search
+{
+  public static void main(String[] args)
+  {
+    int[] arr = {1, 23, 45, 65, 113, 150, 200, 250, 264, 304, 345};
+
+    int value = 345;
+    int value_idx = binary_search(arr, value);
+
+    if(value_idx == -1){
+      System.out.println("Value being searched does not exist");
+    }
+    else{
+      System.out.println("Value " + value + " is located at index: " + value_idx);
+    }
+  }
+
+  // Searches sorted array O(nlgn)
+  public static int binary_search(int[] a, int value){
+    int first = 0;
+    int last = a.length;
+
+    while(first < last){
+      int middle = (int)Math.floor((first + last) / 2);
+      if(value <= a[middle]){
+        last = middle;
+      }
+      else{
+        first = middle + 1;
+      }
+    }
+
+    if(a[first] == value){
+      return first;
+    }
+    else{
+      return -1;
+    }
+  }
+}
+					</code>
+				</pre>
+				<h4 "title is-4"><a href="index.html">Home</a></h4>
+			</div>
+		</section>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/prism.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-perl.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-r.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-ruby.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-python.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-bash.js"></script>
+	</body>
+</html>

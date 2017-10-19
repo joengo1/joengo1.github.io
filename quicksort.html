@@ -1,0 +1,76 @@
+<!DOCTYPE>
+<html>
+	<head>
+		  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.0/css/bulma.min.css" integrity="sha256-J2MxVJvpHeOeT0uUGqoj5CkoFkT4zBEweNmqP/UWu1U=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/themes/prism.min.css" />
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+	pre{font-size:1.3rem; border-radius:30px;}
+</style>
+	</head>
+	<body>
+		<section class="section">
+			<div class="container">
+				<pre class="language-bash">
+					<code>
+
+#!/bin/java
+
+public class quicksort
+{
+  public static void main(String[] args)
+  {
+    int[] arr = {4, 5, 23, 42, 1,  14, 6, 33, 24, 25, 53, 10, 9};
+
+    quicksort(arr, 0, arr.length - 1);
+
+    for(int element: arr){
+      System.out.print(element + " ");
+    }
+    System.out.println();
+  }
+
+  public static void quicksort(int[] a, int p, int r)
+  {
+    if(p < r){
+      int q = partition(a, p, r);
+      quicksort(a, p, q - 1);
+      quicksort(a, q + 1, r);
+    }
+  }
+
+  public static int partition(int[]a, int p, int r){
+    int x, i, temp;
+    x = a[r];
+    i = p - 1;
+
+    for(int j = p; j <= r - 1; j++){
+      if(a[j] <= x){
+        i++;
+        temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
+      }
+    }
+
+    temp = a[i + 1];
+    a[i + 1] = a[r];
+    a[r] = temp;
+
+    return i + 1;
+  }
+}
+					</code>
+				</pre>
+				<h4 "title is-4"><a href="index.html">Home</a></h4>
+			</div>
+		</section>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/prism.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-perl.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-r.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-ruby.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-python.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-bash.js"></script>
+	</body>
+</html>

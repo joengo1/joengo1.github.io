@@ -1,0 +1,110 @@
+<!DOCTYPE>
+<html>
+	<head>
+		  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.0/css/bulma.min.css" integrity="sha256-J2MxVJvpHeOeT0uUGqoj5CkoFkT4zBEweNmqP/UWu1U=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/themes/prism.min.css" />
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+	pre{font-size:1.3rem; border-radius:30px;}
+</style>
+	</head>
+	<body>
+		<section class="section">
+			<div class="container">
+				<pre class="language-bash">
+					<code>
+
+#!/bin/java
+
+public class merge_sort
+{
+  public static void main(String[] args)
+  {
+    int[] arr = {65, 3, -34, 5, 0, 51, 6, 24, 12, -50, 1};
+
+    merge_sort(arr, 0, arr.length - 1);
+
+    for(int element: arr){
+      System.out.print(element + " ");
+    }
+    System.out.println();
+  }
+
+  // Merge Sort O(nlgn)
+  public static void merge_sort(int[] a, int p, int r){
+    if(p < r){
+      int q = (int)Math.floor((p + r) / 2);
+      merge_sort(a, p, q);
+      merge_sort(a, q + 1, r);
+      merge(a, p, q, r);
+    }
+  }
+
+   // Merges two subarrays of arr[].
+   // First subarray is arr[l..m]
+   // Second subarray is arr[m+1..r]
+  public static void merge(int[] a, int p, int q, int r){
+
+    // Find sizes of two subarrays to be merged
+    int n1 = q - p + 1;
+    int n2 = r - q;
+
+    // Create temp arrays
+    int[] left = new int[n1];
+    int[] right = new int[n2];
+
+    // Copy data to temp arrays
+    for(int i = 0; i < n1; i++){
+      left[i] = a[p + i];
+    }
+
+    for(int j = 0; j < n2; j++){
+      right[j] = a[q + 1 + j];
+    }
+
+    /* Merge the temp arrays */
+
+    // Initial indexes of first and second subarrays (i, j)
+    // Initial index of merged subarry array (k)
+    int i = 0, j = 0, k = p;
+    while(i < n1 && j < n2){
+      if(left[i] <= right[j]){
+        a[k] = left[i];
+        i++;
+      }
+      else{
+        a[k] = right[j];
+        j++;
+      }
+      k++;
+    }
+
+    // Copy remaining elements of left[] if any
+    while(i < n1){
+      a[k] = left[i];
+      i++;
+      k++;
+    }
+
+    // Copy remaining elements of right[] if any
+    while(j < n2){
+      a[k] = right[j];
+      j++;
+      k++;
+    }
+  }
+}
+					</code>
+				</pre>
+				<h4 "title is-4"><a href="index.html">Home</a></h4>
+			</div>
+		</section>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/prism.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-perl.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-r.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-ruby.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-python.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-bash.js"></script>
+	</body>
+</html>
