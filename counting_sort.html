@@ -1,0 +1,82 @@
+<!DOCTYPE>
+<html>
+	<head>
+		  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.0/css/bulma.min.css" integrity="sha256-J2MxVJvpHeOeT0uUGqoj5CkoFkT4zBEweNmqP/UWu1U=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/themes/prism.min.css" />
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+	pre{font-size:1.3rem; border-radius:30px;}
+</style>
+	</head>
+	<body>
+		<section class="section">
+			<div class="container">
+				<pre class="language-bash">
+					<code>
+
+#!/bin/java
+
+public class counting_sort
+{
+  public static void main(String[] args)
+  {
+    int[] arr = {56, 4, 2, 34, 1, 4, 5, 33, 5, 2, 4, 6, 2, 3, 45, 34, 1, 56};
+
+    int[] sorted_arr = counting_sort(arr);
+
+    for(int element: sorted_arr){
+      System.out.print(element + " ");
+    }
+    System.out.println();
+  }
+
+  public static int[] counting_sort(int[] a){
+
+		int[] c = new int[max(a) + 1];
+		int[] b = new int[a.length];
+
+		// Count occurences of 1 ... k in arr
+		for(int element: a){
+		  c[element]++;
+		}
+
+		for(int i = 1; i < c.length; i++){
+		  c[i] = c[i-1] + c[i];
+		}
+
+		for(int i = a.length - 1; i >= 0; i--){
+		  int idx = a[i];
+		  b[c[idx] - 1] = a[i];
+		  c[idx]--;
+		}
+
+    return b;
+  }
+
+  public static int max(int[] a){
+  	int max = a[0];
+
+    for(int i = 1; i < a.length; i++)
+    {
+        if(a[i] > max){
+        	max = a[i];
+        }
+    }
+
+    return max;
+  }
+}
+					</code>
+				</pre>
+				<h4 "title is-4"><a href="index.html">Home</a></h4>
+			</div>
+		</section>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/prism.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-perl.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-r.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-ruby.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-python.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-bash.js"></script>
+	</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE>
+<html>
+	<head>
+		  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.0/css/bulma.min.css" integrity="sha256-J2MxVJvpHeOeT0uUGqoj5CkoFkT4zBEweNmqP/UWu1U=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/themes/prism.min.css" />
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+	pre{font-size:1.3rem; border-radius:30px;}
+</style>
+	</head>
+	<body>
+		<section class="section">
+			<div class="container">
+				<pre class="language-bash">
+					<code>
+
+#!/bin/java
+
+public class radix_sort
+{
+  public static void main(String[] args)
+  {
+    // int[] arr = {329, 457, 657, 839, 436, 720, 355};
+    int[] arr = {32, 314, 4252, 13, 1, 452, 2322, 592, 4429, 45, 85};
+
+    int max_num = max(arr);
+    int d = num_digits(max_num);
+    String[] pad_arr = pad(arr, d);
+    pad_arr = radix_sort(pad_arr, d);
+
+    for(String element: pad_arr){
+      System.out.print(Integer.parseInt(element) + " ");
+    }
+    System.out.println();
+  }
+
+  public static String[] radix_sort(String[] a, int d){
+    for(int i = d - 1; i >= 0; i--){
+      a = counting_sort(a, i);
+    }
+
+    return a;
+  }
+
+  public static String[] counting_sort(String[] a, int d){
+    int[] new_a = new int[a.length];
+
+    for(int i = 0; i < new_a.length; i++){
+      new_a[i] = Character.getNumericValue(a[i].charAt(d));
+    }
+
+		int[] c = new int[max(new_a) + 1];
+		String[] b = new String[a.length];
+
+		// Count occurences of 1 ... k in arr
+		for(int element: new_a){
+		  c[element]++;
+		}
+
+		for(int i = 1; i < c.length; i++){
+		  c[i] = c[i-1] + c[i];
+		}
+
+		for(int i = a.length - 1; i >= 0; i--){
+		  int idx = new_a[i];
+		  b[c[idx] - 1] = a[i];
+		  c[idx]--;
+		}
+
+    return b;
+  }
+
+  public static int max(int[] a){
+  	int max = a[0];
+
+    for(int i = 1; i < a.length; i++)
+    {
+        if(a[i] > max){
+        	max = a[i];
+        }
+    }
+
+    return max;
+  }
+
+  public static String[] pad(int[] a, int digits){
+    String[] padded_a = new String[a.length];
+
+    for(int i = 0; i < a.length; i++){
+      int d = num_digits(a[i]);
+      String num_str;
+      if(d != digits){
+        num_str = String.format("%0" + digits + "d", a[i]);
+      }
+      else{
+        num_str = Integer.toString(a[i]);
+      }
+      padded_a[i] = num_str;
+    }
+
+    return padded_a;
+  }
+
+  public static int num_digits(int num){
+    int digits = 1;
+    int divisor = 10;
+    while(num / divisor > 0){
+      digits++;
+      divisor *= 10;
+    }
+
+    return digits;
+  }
+}
+					</code>
+				</pre>
+				<h4 "title is-4"><a href="index.html">Home</a></h4>
+			</div>
+		</section>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/prism.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-perl.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-r.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-ruby.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-python.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-bash.js"></script>
+	</body>
+</html>
