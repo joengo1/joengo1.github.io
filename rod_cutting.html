@@ -1,0 +1,113 @@
+<!DOCTYPE>
+<html>
+	<head>
+		  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.0/css/bulma.min.css" integrity="sha256-J2MxVJvpHeOeT0uUGqoj5CkoFkT4zBEweNmqP/UWu1U=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/themes/prism.min.css" />
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+	pre{font-size:1.3rem; border-radius:30px;}
+</style>
+	</head>
+	<body>
+		<section class="section">
+			<div class="container">
+				<pre class="language-bash">
+					<code>
+
+#!/bin/java
+
+import java.util.*;
+import java.lang.*;
+
+public class rod_cutting
+{
+  public static void main(String[] args)
+  {
+    //double[] p = {0, 1, 5, 8, 10};
+    double[] p = {0, 1, 5, 8, 9, 10, 17, 17, 20, 24, 30};
+    // int[] s = new int[5];
+    // s[0] = 0;
+
+    int length = 4;
+    double best_cut = bottom_up_cut_rod(p, length);
+
+    System.out.println("Best cut for rod of length " + length + ": " + best_cut);
+  }
+
+  // 2^n solution
+  public static double cut_rod(double[] p, int n){
+    if(n == 0){
+      return 0;
+    }
+
+    double q = Double.NEGATIVE_INFINITY;
+    for(int i = 1; i <= n; i++){
+      q = Math.max(q, p[i] + cut_rod(p, n - i));
+    }
+
+    return q;
+  }
+
+  // n^2 solution - recursive
+  public static double memoized_cut_rod(double[] p, int n){
+    double[] r = new double[n + 1];
+    for(int i = 0; i <= n; i++){
+      r[i] = Double.NEGATIVE_INFINITY;
+    }
+    return memoized_cut_rod_aux(p, n, r);
+  }
+
+  public static double memoized_cut_rod_aux(double[] p, int n, double[] r){
+    double q;
+
+    if(r[n] >= 0){
+      return r[n];
+    }
+
+    if(n == 0){
+      q = 0;
+    }
+    else{
+      q = Double.NEGATIVE_INFINITY;
+      for(int i = 1; i <= n; i++){
+        q = Math.max(q, p[i] + memoized_cut_rod_aux(p, n - i, r));
+      }
+    }
+
+    r[n] = q;
+    return q;
+  }
+
+  // n^2 solution - not recursive
+  public static double bottom_up_cut_rod(double[] p, int n){
+    double q;
+
+    double[] r = new double[n + 1];
+    r[0] = 0;
+
+    for(int j = 1; j <= n; j++){
+      q = Double.NEGATIVE_INFINITY;
+
+      for(int i = 1; i <= j; i++){
+        q = Math.max(q, p[i] + r[j - i]);
+      }
+      r[j] = q;
+    }
+
+    return r[n];
+  }
+}
+					</code>
+				</pre>
+				<h4 "title is-4"><a href="index.html">Home</a></h4>
+			</div>
+		</section>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/prism.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-perl.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-r.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-ruby.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-python.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-bash.js"></script>
+	</body>
+</html>
