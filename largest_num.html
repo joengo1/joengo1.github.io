@@ -1,0 +1,89 @@
+<!DOCTYPE>
+<html>
+	<head>
+		  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.0/css/bulma.min.css" integrity="sha256-J2MxVJvpHeOeT0uUGqoj5CkoFkT4zBEweNmqP/UWu1U=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/themes/prism.min.css" />
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+	pre{font-size:1.3rem; border-radius:30px;}
+</style>
+	</head>
+	<body>
+		<section class="section">
+			<div class="container">
+				<pre class="language-bash">
+					<code>
+
+#!/bin/java
+
+import java.util.*;
+
+public class largest_num
+{
+  public static void main(String[] args)
+  {
+    int[] num_arr = {50, 2, 1, 9, 800, 980, 9323};
+    int[] sorted;
+    String largest = "";
+
+    sorted = counting_sort(num_arr);
+
+    for(int element: sorted){
+      System.out.println(element);
+    }
+    System.out.println();
+
+    for(int i = sorted.length - 1; i >= 0; i--){
+      largest += String.valueOf(sorted[i]);
+    }
+
+    System.out.println(largest);
+  }
+
+  public static int[] counting_sort(int[] arr){
+    int[] c = new int[10];
+    int[] b = new int[arr.length];
+
+    // Count occurences of 1 ... k
+    for(int element: arr){
+      int digit = Character.getNumericValue(String.valueOf(element).charAt(0));
+      c[digit]++;
+    }
+
+    for(int element: c){
+        System.out.println(element);
+    }
+    System.out.println();
+
+    for(int i = 1; i < c.length; i++){
+      c[i] = c[i-1] + c[i];
+    }
+
+    for(int element: c){
+        System.out.println(element);
+    }
+    System.out.println();
+
+    for(int i = arr.length - 1; i >= 0; i--){
+      int digit = Character.getNumericValue(String.valueOf(arr[i]).charAt(0));
+      b[c[digit] - 1] = arr[i];
+      c[digit]--;
+    }
+
+    return b;
+  }
+}
+					</code>
+				</pre>
+				<h4 "title is-4"><a href="index.html">Home</a></h4>
+			</div>
+		</section>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/prism.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-perl.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-r.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-ruby.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-python.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-bash.js"></script>
+	</body>
+</html>

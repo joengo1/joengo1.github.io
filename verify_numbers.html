@@ -1,0 +1,107 @@
+<!DOCTYPE>
+<html>
+	<head>
+		  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.0/css/bulma.min.css" integrity="sha256-J2MxVJvpHeOeT0uUGqoj5CkoFkT4zBEweNmqP/UWu1U=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/themes/prism.min.css" />
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+	pre{font-size:1.3rem; border-radius:30px;}
+</style>
+	</head>
+	<body>
+		<section class="section">
+			<div class="container">
+				<pre class="language-bash">
+					<code>
+
+#!/bin/java
+
+package backend;
+
+import org.apfloat.Apfloat;
+import org.apfloat.ApfloatMath;
+import org.apfloat.Apint;
+
+public class verify_bits {
+
+	public static void main(String[] args) {
+		// Get numbers from args
+
+	    if (args[0].equals("check") == true)
+		{
+		    check_bits(args[1]);
+		}
+	    else
+		{
+		    String[] nums_to_check = new String[args.length - 2];
+		    for (int i = 2; i < args.length; i ++)
+			{
+			    nums_to_check[i-2] =  args[i];
+			}
+
+		    // args[1] is the number to check against
+		    // nums to check holds the numbers you multiply together
+		    // to see if they equal the number at args[1]
+		    check_factors(args[1],nums_to_check);
+
+
+		}
+	    return;
+	}
+	public static void check_bits (String num) {
+		Apfloat test_num = new Apfloat(num);
+		Apfloat base = new Apfloat(2);
+
+		Apfloat log_num = ApfloatMath.log(test_num,base);
+
+		Apint floor_log = ApfloatMath.floor(log_num);
+		Apint one = new Apint(1);
+		floor_log = floor_log.add(one);
+		int num_bits = floor_log.intValue();
+		if (!((num_bits < 80) && (num_bits > 240)))
+		    {
+            System.out.println(num_bits);
+			System.out.println('0');
+		    }
+		else
+		    {
+            System.out.println(num_bits);
+			System.out.println('1');
+		    }
+
+	}
+	public static void check_factors(String check_num, String[] numbers)
+	{
+
+		Apint num_check = new Apint(check_num);
+
+		Apint answer = new Apint(numbers[0]);
+		for (int i = 1; i < numbers.length; i ++)
+		    {
+			Apint fac2 = new Apint(numbers[i]);
+			answer = answer.multiply(fac2);
+		    }
+		if (answer.equals(num_check))
+		{
+		    System.out.println('1');
+		}
+		else
+		{
+		    System.out.println('0');
+		}
+	}
+}
+					</code>
+				</pre>
+				<h4 "title is-4"><a href="index.html">Home</a></h4>
+			</div>
+		</section>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/prism.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-perl.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-r.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-ruby.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-python.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-bash.js"></script>
+	</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE>
+<html>
+	<head>
+		  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.0/css/bulma.min.css" integrity="sha256-J2MxVJvpHeOeT0uUGqoj5CkoFkT4zBEweNmqP/UWu1U=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/themes/prism.min.css" />
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+	pre{font-size:1.3rem; border-radius:30px;}
+</style>
+	</head>
+	<body>
+		<section class="section">
+			<div class="container">
+				<pre class="language-bash">
+					<code>
+
+#!/bin/java
+
+class linked_list
+{
+    public static void main(String[] args)
+    {
+
+      linked_list list1 = new linked_list();
+      Node newNode_head;
+      newNode_head = list1.newNode('g');
+      list1.insert(newNode_head);
+
+      Node newNode;
+      newNode = list1.newNode('e');
+      list1.insert(newNode);
+      newNode = list1.newNode('e');
+      list1.insert(newNode);
+      newNode = list1.newNode('k');
+      list1.insert(newNode);
+      newNode = list1.newNode('s');
+      list1.insert(newNode);
+      newNode = list1.newNode('a');
+      list1.insert(newNode);
+      System.out.println("Created linked list");
+      list1.printList();
+
+      Node newNode_head2;
+      linked_list list2 = new linked_list();
+      newNode_head2 = list2.newNode('g');
+      list2.insert(newNode_head2);
+
+      Node newNode2;
+      newNode2 = list2.newNode('e');
+      list2.insert(newNode2);
+      newNode2 = list2.newNode('e');
+      list2.insert(newNode2);
+      newNode2 = list2.newNode('k');
+      list2.insert(newNode2);
+      newNode2 = list2.newNode('s');
+      list2.insert(newNode2);
+      newNode2 = list2.newNode('a');
+      list2.insert(newNode2);
+      System.out.println("Created linked list");
+      list2.printList();
+
+      System.out.println(compare(newNode_head, newNode_head2));
+    }
+
+    int size;
+    static Node head;
+
+    class Node
+    {
+      char data;
+      Node next;
+
+      Node(char x){
+        next = null;
+        data = x;
+      }
+    }
+
+    Node newNode(char data){
+      Node node = new Node(data);
+      return node;
+    }
+
+    void insert(Node newNode){
+      Node current;
+
+      if(empty()){
+        head = newNode;
+        size++;
+      }
+      else{
+        current = head;
+
+        while(current.next != null){
+          current = current.next;
+        }
+        current.next = newNode;
+
+        size++;
+      }
+    }
+
+    void sortedInsert(Node newNode){
+      Node current;
+
+      if(empty()){
+        head = newNode;
+        size++;
+      }
+      else if(newNode.data < head.data){
+        newNode.next = head;
+        head = newNode;
+        size++;
+      }
+      else{
+        current = head;
+
+        while(current.next != null && current.next.data < newNode.data){
+          current = current.next;
+        }
+        newNode.next = current.next;
+        current.next = newNode;
+
+        size++;
+      }
+    }
+
+    void deleteNode(Node head, Node toDelete){
+      if(size == 1){
+        System.out.println("Can't delete node or list will be empty");
+      }
+      else{
+        Node current = head;
+        while(current.next != null && current.next != toDelete){
+          current = current.next;
+        }
+
+        if(current.next == null){
+          System.out.println("Node to delete does not exist");
+        }
+
+        current.next = current.next.next;
+        System.gc();
+        size--;
+      }
+    }
+
+    static int compare(Node node1, Node node2){
+      if (node1 == null && node2 == null) {
+        return 1;
+      }
+
+      while (node1 != null && node2 != null && node1.data == node2.data) {
+        node1 = node1.next;
+        node2 = node2.next;
+      }
+
+      // if the list are different in size
+      if (node1 != null && node2 != null) {
+        return (node1.data > node2.data ? 1 : -1);
+      }
+
+      // if either of the list has reached end
+      if (node1 != null && node2 == null) {
+        return 1;
+      }
+      if (node1 == null && node2 != null) {
+        return -1;
+      }
+      return 0;
+    }
+
+    boolean empty(){
+      return size == 0 ? true : false;
+    }
+
+    void printList(){
+      Node current = head;
+      while(current.next != null){
+        System.out.print(current.data + ", ");
+        current = current.next;
+      }
+      System.out.println(current.data);
+      System.out.println("Size of list: " + size);
+    }
+}
+					</code>
+				</pre>
+				<h4 "title is-4"><a href="index.html">Home</a></h4>
+			</div>
+		</section>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/prism.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-perl.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-r.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-ruby.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-python.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-bash.js"></script>
+	</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE>
+<html>
+	<head>
+		  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.0/css/bulma.min.css" integrity="sha256-J2MxVJvpHeOeT0uUGqoj5CkoFkT4zBEweNmqP/UWu1U=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/themes/prism.min.css" />
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+	pre{font-size:1.3rem; border-radius:30px;}
+</style>
+	</head>
+	<body>
+		<section class="section">
+			<div class="container">
+				<pre class="language-bash">
+					<code>
+
+#!/bin/java
+
+import java.io.*;
+import java.lang.*;
+import java.util.*;
+
+public class lcs
+{
+    public static void main(String[] args)
+    {
+      Scanner sc = new Scanner(System.in);
+      System.out.print("Enter file name: ");
+      String fileName = sc.nextLine();
+
+      BufferedReader br = openFile(fileName);
+
+      if(br == null){
+        System.out.println("Could not read buffer");
+      }
+      else{
+        String line = null;
+        List<String> sequence_arr = new ArrayList<String>();
+
+        try{
+          while((line = br.readLine()) != null){
+            sequence_arr.add(line);
+          }
+        }
+        catch(IOException e){
+    			System.out.println("Error reading file " + fileName);
+    		}
+
+        if(sequence_arr.isEmpty() || sequence_arr.size() < 2){
+          System.out.println("File is empty or list has less than 2 elements");
+        }
+        else{
+          System.out.println("Finding LCS of: " + sequence_arr.get(0) + " & " + sequence_arr.get(1));
+
+          List<Character> lcs = lcs_compute(sequence_arr);
+          Collections.reverse(lcs);
+
+          System.out.print("LCS = ");
+          for(char element: lcs){
+            System.out.print(element);
+          }
+          System.out.println();
+        }
+      }
+    }
+
+    public static BufferedReader openFile(String fileName){
+      BufferedReader bufferedReader = null;
+
+  		try {
+  			FileReader fileReader = new FileReader(fileName);
+  			bufferedReader = new BufferedReader (fileReader);
+  		}
+  		catch(FileNotFoundException e) {
+  			System.out.println("Unable to open file " + fileName);
+  		}
+
+      return bufferedReader;
+    }
+
+    public static List<Character> lcs_compute(List<String> seq){
+      String s1 = seq.get(0);
+      String s2 = seq.get(1);
+      List<Character> lcs = new ArrayList<Character>();
+
+      int[][] c = new int[s1.length() + 1][s2.length() + 1];
+
+      for(int i = 0; i < c.length; i++){
+        c[i][0] = 0;
+      }
+
+      for(int i = 0; i < c[0].length; i++){
+        c[0][i] = 0;
+      }
+
+      for(int i = 1; i < c.length; i++){
+        for(int j = 1; j < c[0].length; j++){
+          if(s1.charAt(i - 1) != s2.charAt(j - 1)){
+            c[i][j] = Math.max(c[i - 1][j], c[i][j - 1]);
+          }
+          else{
+            c[i][j] = c[i - 1][j - 1] + 1;
+          }
+        }
+      }
+
+      for(int i = 0; i < c.length; i++){
+        for(int j = 0; j < c[0].length; j++){
+          System.out.print(c[i][j] + " ");
+        }
+        System.out.println();
+      }
+
+      int i = c.length - 1;
+      int j = c[0].length - 1;
+      while(true){
+        if(s1.charAt(i - 1) == s2.charAt(j - 1)){
+          lcs.add(s1.charAt(i - 1));
+          i--;
+          j--;
+
+          if(c[i][j] == 0){
+            break;
+          }
+        }
+        else if(s1.charAt(i - 2) == s2.charAt(j - 1)){
+          i--;
+        }
+        else if(s1.charAt(i - 1) == s2.charAt(j - 2)){
+          j--;
+        }
+        else{
+          i--;
+          j--;
+        }
+      }
+
+      return lcs;
+    }
+}
+					</code>
+				</pre>
+				<h4 "title is-4"><a href="index.html">Home</a></h4>
+			</div>
+		</section>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/prism.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-perl.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-r.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-ruby.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-python.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-bash.js"></script>
+	</body>
+</html>

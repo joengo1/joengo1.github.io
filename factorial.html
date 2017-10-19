@@ -1,0 +1,59 @@
+<!DOCTYPE>
+<html>
+	<head>
+		  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.0/css/bulma.min.css" integrity="sha256-J2MxVJvpHeOeT0uUGqoj5CkoFkT4zBEweNmqP/UWu1U=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/themes/prism.min.css" />
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+	pre{font-size:1.3rem; border-radius:30px;}
+</style>
+	</head>
+	<body>
+		<section class="section">
+			<div class="container">
+				<pre class="language-bash">
+					<code>
+
+#!/bin/java
+
+public class factorial
+{
+  public static void main(String[] args)
+  {
+      int num = 5;
+      int result = fact(num);
+
+      System.out.println("Factorial(" + num + ") = " + result);
+  }
+
+
+  public static int fact(int n){
+    int f = n;
+
+    if(n < 0){
+      System.out.println("Error: number is less than 0");
+    }
+    else if(n == 0){
+      f = 1;
+    }
+    else{
+      f = n * fact(n - 1);
+    }
+
+    return f;
+  }
+}
+					</code>
+				</pre>
+				<h4 "title is-4"><a href="index.html">Home</a></h4>
+			</div>
+		</section>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/prism.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-perl.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-r.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-ruby.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-python.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-bash.js"></script>
+	</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE>
+<html>
+	<head>
+		  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.0/css/bulma.min.css" integrity="sha256-J2MxVJvpHeOeT0uUGqoj5CkoFkT4zBEweNmqP/UWu1U=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/themes/prism.min.css" />
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+	pre{font-size:1.3rem; border-radius:30px;}
+</style>
+	</head>
+	<body>
+		<section class="section">
+			<div class="container">
+				<pre class="language-bash">
+					<code>
+
+#!/bin/java
+
+import java.io.*;
+import java.lang.*;
+import java.util.*;
+
+public class lis
+{
+  public static void main(String[] args)
+  {
+    Scanner in = new Scanner(System.in);
+    System.out.print("Enter file name: ");
+    String fileName = in.nextLine();
+
+    BufferedReader br = openFile(fileName);
+
+    if(br == null){
+      System.out.println("Could not read buffer");
+    }
+    else{
+      String line = null;
+
+      try{
+        line = br.readLine();
+      }
+      catch(IOException e){
+        System.out.println("Error reading file " + fileName);
+      }
+
+      String[] str_arr = line.split(" ");
+      int[] int_arr = new int[str_arr.length];
+
+      for(int i = 0; i < str_arr.length; i++){
+        try{
+          int_arr[i] = Integer.parseInt(str_arr[i]);
+        }
+        catch(NumberFormatException e){
+          System.out.println("Character to conver is not a valid number");
+        }
+      }
+
+      System.out.print("Finding LIS of: ");
+      for(int element: int_arr){
+        System.out.print(element + " ");
+      }
+      System.out.println();
+
+      lis_compute(int_arr);
+    }
+  }
+
+  public static BufferedReader openFile(String fileName){
+    BufferedReader br = null;
+
+    try{
+      FileReader fr = new FileReader(fileName);
+      br = new BufferedReader(fr);
+    }
+    catch(FileNotFoundException e){
+      System.out.println("Unable to open file " + fileName);
+    }
+
+    return br;
+  }
+
+  public static void lis_compute(int[] arr){
+    List<Integer> temp = new ArrayList<Integer>(Collections.nCopies(arr.length, 0));
+    List<Integer> parent = new ArrayList<Integer>(Collections.nCopies(arr.length, -1));
+
+    int len = 1;
+    for(int i = 1; i < arr.length; i++){
+      if(arr[i] < arr[temp.get(0)]){
+        temp.set(0, i);
+        parent.set(i, -1);
+      }
+      else if(arr[i] > arr[temp.get(len - 1)]){
+        temp.set(len, i);
+        parent.set(i, temp.get(len - 1));
+        len++;
+      }
+      else{
+        int idx = binary_search(temp, len - 1, arr[i], arr);
+        temp.set(idx, i);
+        parent.set(i, temp.get(idx - 1));
+      }
+    }
+
+    System.out.println("T: " + temp);
+    System.out.println("P: " + parent);
+    System.out.println("LIS length: " + len);
+    System.out.print("LIS: ");
+    print_lis(parent, arr, temp.get(len - 1));
+    System.out.println();
+  }
+
+  public static void print_lis(List<Integer> parent, int[] arr, int n){
+    if(n == -1){
+      return;
+    }
+    print_lis(parent, arr, parent.get(n));
+    System.out.print(arr[n] + " ");
+  }
+
+  public static int binary_search(List<Integer> temp, int len, int key, int[] arr){
+    int l = 0;
+    int r = len;
+      while(r - l > 1){
+        int mid = l + (r - l) / 2;
+        if(arr[temp.get(mid)] >= key){
+          r = mid;
+        }
+        else{
+          l = mid;
+        }
+      }
+    return r;
+  }
+}
+					</code>
+				</pre>
+				<h4 "title is-4"><a href="index.html">Home</a></h4>
+			</div>
+		</section>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/prism.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-perl.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-r.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-ruby.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-python.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-bash.js"></script>
+	</body>
+</html>
