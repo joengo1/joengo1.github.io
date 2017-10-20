@@ -1,0 +1,95 @@
+<!DOCTYPE>
+<html>
+	<head>
+		  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.0/css/bulma.min.css" integrity="sha256-J2MxVJvpHeOeT0uUGqoj5CkoFkT4zBEweNmqP/UWu1U=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/themes/prism.min.css" />
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+	pre{font-size:1.3rem; border-radius:30px;}
+</style>
+	</head>
+	<body>
+		<section class="section">
+			<div class="container">
+				<pre class="language-bash">
+					<code>
+
+#!/bin/java
+
+public class heapsort
+{
+  public static void main(String[] args)
+  {
+    int[] arr = {54, 13, 43, 19, 0, 3, 1, 492, 23, 94, 53, 75, 67};
+
+    heapsort(arr);
+
+    for(int element: arr){
+      System.out.print(element + " ");
+    }
+    System.out.println();
+  }
+
+  public static void heapsort(int[] a){
+    build_max_heap(a);
+    for(int i = a.length - 1; i >= 0; i--){
+      int temp = a[0];
+      a[0] = a[i];
+      a[i] = temp;
+
+      max_heapify(a, i, 0);
+    }
+  }
+
+  public static void build_max_heap(int[] a){
+    int n = a.length;
+    int start = (int)Math.floor((a.length) / 2);
+    for(int i = start - 1; i >= 0; i--){
+      max_heapify(a, n, i);
+    }
+  }
+
+  public static void max_heapify(int[] a, int n, int i){
+    int l = left(i);
+    int r = right(i);
+    int largest = i;
+
+    if(l < n && a[l] > a[largest]){
+      largest = l;
+    }
+
+    if(r < n && a[r] > a[largest]){
+      largest = r;
+    }
+
+    if(largest != i){
+      int temp = a[i];
+      a[i] = a[largest];
+      a[largest] = temp;
+
+      max_heapify(a, n, largest);
+    }
+  }
+
+  public static int left(int i){
+    return (2 * i) + 1;
+  }
+
+  public static int right(int i){
+    return (2 * i) + 2;
+  }
+}
+					</code>
+				</pre>
+				<h4 "title is-4"><a href="index.html">Home</a></h4>
+			</div>
+		</section>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/prism.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-perl.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-r.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-ruby.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-python.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.7.0/components/prism-bash.js"></script>
+	</body>
+</html>
